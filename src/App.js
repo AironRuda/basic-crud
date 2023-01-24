@@ -1,5 +1,8 @@
+import Register from "./pages/Register";
+import "./style.scss";
+
 function App() {
-  return <div className="App">si señora</div>;
+  return <Register />;
 }
 
 export default App;
