@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [error, setError] = useState(false);
@@ -12,10 +12,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const displayName = e.target[0].value;
-    const email = e.target[1].value;
-    const password = e.target[2].value;
-    const file = e.target[3].files[0];
+    const displayName = e.target.displayName.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const file = e.target.file.files[0];
     try {
       // create user
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -58,9 +58,9 @@ const Register = () => {
         <span className="logo">Chat app</span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="display name" />
-          <input type="email" placeholder="email" />
-          <input type="password" placeholder="password" />
+          <input type="text" id="displayName" placeholder="display name" />
+          <input type="email" id="email" placeholder="email" />
+          <input type="password" id="password" placeholder="password" />
           <input
             style={{ display: "none" }}
             type="file"
@@ -74,7 +74,9 @@ const Register = () => {
           <button>sing up</button>
           {error && <span>Algo salio mal</span>}
         </form>
-        <p>You do have an account? Login</p>
+        <p>
+          You do have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );
